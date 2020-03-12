@@ -10,9 +10,6 @@ class MultivariateGaussian(Model):
     # Initialise data
     def __init__(self, data_dictionary):
 
-        # if 'normal' not in data_dictionary:
-        #     raise ValueError("No normal data in dictionary. A normal data is necessary")
-
         if 'cross_validation' not in data_dictionary:
             raise ValueError("No cross validation data in dictionary. A cross validation data "
                              "is necessary")

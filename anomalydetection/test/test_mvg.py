@@ -5,6 +5,8 @@ import pandas as pd
 import scipy.io
 
 from anomalydetection.models.statistics.mvg import MultivariateGaussian
+from anomalydetection.data.calculations import select_threshold
+
 
 class TestMVG(TestCase):
 
@@ -39,9 +41,7 @@ class TestMVG(TestCase):
 
         cross_validation_values = statistics_model.get_probabilities(x_val)
 
-        import StatisticsFeatureCalculation
-        (epsilon, f1, complexity) = StatisticsFeatureCalculation.select_threshold(
-            y_val.flatten(), cross_validation_values)
+        (epsilon, f1, complexity) = select_threshold(y_val.flatten(), cross_validation_values)
 
         self.assertEqual(epsilon, 0.004497041160124132)
         self.assertEqual(f1, 0.27338129496402874)
