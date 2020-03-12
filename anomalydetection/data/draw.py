@@ -74,21 +74,17 @@ def draw_histogram_feature(x_data, x_header=None, y_value=None):
     m = len(x_data[0, :])
     for i in range(m):
         feature_value = x_data[:, i]
-        if x_header is not None:
-            print(x_header[i])
-        else:
-            print(i)
+
         if y_value is None:
             # the histogram of the data
-            n, bins, patches = plt.hist(feature_value, 100, normed=1, facecolor='g', alpha=0.75)
-            feature_value1 = np.log(feature_value + 1)
+            plt.hist(feature_value, 100, normed=1, facecolor='g', alpha=0.75)
 
             mean = np.mean(feature_value, axis=0)
             sigma = np.cov(feature_value, rowvar=False)
 
             num_bins = 50
             # the histogram of the data
-            n, bins, patches = plt.hist(feature_value, num_bins,  facecolor='green', alpha=0.5)
+            plt.hist(feature_value, num_bins,  facecolor='green', alpha=0.5)
             plt.xlabel('feature_value ' + str(i))
             plt.show()
 
@@ -101,7 +97,7 @@ def draw_histogram_feature(x_data, x_header=None, y_value=None):
 
         else:
 
-            n, bins, patches = plt.hist(feature_value, 50, normed=1, facecolor='g', alpha=0.75)
+            plt.hist(feature_value, 50, normed=1, facecolor='g', alpha=0.75)
             n, bins, patches = plt.hist((y_value[:, i]), 50, normed=1, color='r', alpha=0.75)
 
             mean = np.mean(feature_value, axis=0)

@@ -1,9 +1,11 @@
 from unittest import TestCase
 
 import numpy as np
+import scipy.io
 
-from anomalydetection.data.calculations import get_optimus_bins, select_threshold
-
+from anomalydetection.data.calculations import get_optimus_bins, select_threshold, \
+    get_statistical_measures
+from anomalydetection.models.statistics.mvg import MultivariateGaussian
 
 class TestCalculations(TestCase):
 
@@ -37,4 +39,28 @@ class TestCalculations(TestCase):
         self.assertEqual(epsilon, 1.7916203624944257e+21)
         self.assertEqual(f1, 0.8571428571428571)
 
+    def test_statistical_measures_data(self):
+        # Read data from file
+        mat_data = scipy.io.loadmat('data/ex8data1.mat')
 
+        x_data = mat_data['X']
+
+        x_val = mat_data['Xval']
+        y_val = mat_data['yval']
+
+        (mean, std) = MultivariateGaussian.fit_parameter_model(x_data)
+
+        p = MultivariateGaussian.get_probabilities_mvg(x_data, mean, std)
+
+        p_val = MultivariateGaussian.get_probabilities_mvg(x_val, mean, std)
+
+        total_positives, total_negatives, statistical_measures = get_statistical_measures(
+            y_val[:, 0], p_val)
+
+        [epsilon, f1, _] = select_threshold(y_val[:, 0], p_val)
+
+        self.assertEqual(total_positives, 9)
+        self.assertEqual(total_negatives, 298)
+
+        self.assertEqual(epsilon, 1.5694315600331694e+35)
+        self.assertEqual(f1, 0.8750000000000001)

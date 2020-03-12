@@ -194,3 +194,49 @@ def select_threshold(y_values, p_values):
     print(best_epsilon)
 
     return best_epsilon, best_f1, lst_complexity
+
+
+# Get statistical measures
+def get_statistical_measures(y_values, p_values):
+
+    p_values = np.array(p_values)
+
+    pval = np.log10(p_values)
+
+    statistical_measures = np.empty([0, 5])
+
+    # max_pvalue = min(pval)
+
+    # pval = [-300 if np.isneginf(x) else x for x in pval]
+    # max_pvalue = min(pval)
+    max_pvalue = math.log10(1e-75)
+    min_pvalue = max(pval)
+
+    steps = 1000
+
+    stepsize = (min_pvalue - max_pvalue) / steps
+
+    rng = np.arange(max_pvalue, min_pvalue, stepsize)
+
+    for epsilon in rng:
+
+        pval = np.array(pval)
+        predictions = (pval < epsilon)
+
+        # True positive
+        tp = sum((predictions == 1) & (y_values == 1))
+
+        # False positive
+        fp = sum((predictions == 1) & (y_values == 0))
+
+        # False negative
+        fn = sum((predictions == 0) & (y_values == 1))
+
+        # True negative
+        tn = sum((predictions == 0) & (y_values == 0))
+
+        statistical_measures = np.append(statistical_measures, [[epsilon, tp, fp, fn, tn]], axis=0)
+
+    total_positives = sum(y_values == 1)
+    total_negatives = sum(y_values == 0)
+    return total_positives, total_negatives, statistical_measures
