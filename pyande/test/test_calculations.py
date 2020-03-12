@@ -3,9 +3,10 @@ from unittest import TestCase
 import numpy as np
 import scipy.io
 
-from anomalydetection.data.calculations import get_optimus_bins, select_threshold, \
+from pyande.data.calculations import get_optimus_bins, select_threshold, \
     get_statistical_measures
-from anomalydetection.models.statistics.mvg import MultivariateGaussian
+from pyande.models.statistics.mvg import MultivariateGaussian
+
 
 class TestCalculations(TestCase):
 

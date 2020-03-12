@@ -2,8 +2,8 @@ import collections
 
 import numpy as np
 
-from anomalydetection.models.model import Model
-from anomalydetection.models.statistics import mvg
+from pyande.models.model import Model
+from pyande.models.statistics import mvg
 
 
 class MultivariateGaussianRelativeFrequency (Model):

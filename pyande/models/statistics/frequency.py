@@ -1,7 +1,7 @@
 import numpy as np
 
-from anomalydetection.models.model import Model
-from anomalydetection.data.calculations import get_optimus_bins
+from pyande.models.model import Model
+from pyande.data.calculations import get_optimus_bins
 
 
 class Frequency(Model):

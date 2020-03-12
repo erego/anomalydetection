@@ -4,7 +4,7 @@ from random import random
 
 import pandas as pd
 
-from anomalydetection.models.svm import OutlierSVM
+from pyande.models.svm import OutlierSVM
 
 
 def calculate_point_circle():

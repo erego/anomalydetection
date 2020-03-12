@@ -1,6 +1,6 @@
 from sklearn import svm
 
-from anomalydetection.models.model import Model
+from pyande.models.model import Model
 
 
 class OutlierSVM(Model):

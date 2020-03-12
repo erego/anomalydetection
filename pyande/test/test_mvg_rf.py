@@ -4,8 +4,8 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import scipy.io
 
-from anomalydetection.models.statistics.mvg_rf import MultivariateGaussianRelativeFrequency
-from anomalydetection.data.calculations import select_threshold
+from pyande.models.statistics.mvg_rf import MultivariateGaussianRelativeFrequency
+from pyande.data.calculations import select_threshold
 
 
 class TestMVGRF(TestCase):

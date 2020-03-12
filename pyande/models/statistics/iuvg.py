@@ -2,7 +2,7 @@ import math
 
 import numpy as np
 
-from anomalydetection.models.model import Model
+from pyande.models.model import Model
 
 
 class IndependentUnivariateGaussian(Model):

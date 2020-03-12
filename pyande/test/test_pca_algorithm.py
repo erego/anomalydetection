@@ -3,8 +3,8 @@ import unittest
 import pandas as pd
 import scipy.io
 
-from anomalydetection.data.calculations import pca_analysis
-from anomalydetection.data.processing import feature_normalization
+from pyande.data.calculations import pca_analysis
+from pyande.data.processing import feature_normalization
 
 
 class TestPCAAlgorithm(unittest.TestCase):

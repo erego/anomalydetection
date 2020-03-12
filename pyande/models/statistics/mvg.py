@@ -1,8 +1,8 @@
 import math
 import numpy as np
 
-from anomalydetection.models.model import Model
-from anomalydetection.data.draw import draw_correlation_matrix
+from pyande.models.model import Model
+from pyande.data.draw import draw_correlation_matrix
 
 
 class MultivariateGaussian(Model):

@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import numpy as np
 
-from anomalydetection.data import processing
+from pyande.data import processing
 
 
 class TestFeatureNormalization(TestCase):
