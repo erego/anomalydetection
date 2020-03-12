@@ -69,7 +69,7 @@ def pca_analysis_scikit(data):
     return pca
 
 
-def select_threshold(yval, pval):
+def select_threshold(y_values, p_values):
     """
         select_threshold Find the best threshold (epsilon) to use for selecting outliers
         [bestEpsilon bestF1] = SELECTTHRESHOLD(yval, pval) finds the best
@@ -79,10 +79,14 @@ def select_threshold(yval, pval):
 
     best_epsilon = 0
     best_f1 = 0
+    best_tp = 0
+    best_tn = 0
+    best_fp = 0
+    best_fn = 0
 
     probability_list = pd.DataFrame(
-        {'pval': pval,
-         'yval': yval
+        {'pval': p_values,
+         'yval': y_values
          })
 
     pval = probability_list['pval'].tolist()

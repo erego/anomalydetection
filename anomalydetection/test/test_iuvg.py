@@ -4,11 +4,11 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import scipy.io
 
-from anomalydetection.models.statistics.mvg import MultivariateGaussian
+from anomalydetection.models.statistics.iuvg import IndependentUnivariateGaussian
 from anomalydetection.data.calculations import select_threshold
 
 
-class TestMVG(TestCase):
+class TestIUVG(TestCase):
 
     def test_mvg(self):
 
@@ -32,16 +32,16 @@ class TestMVG(TestCase):
         data_dictionary = {'train': x_train, 'cross_validation': x_val,
                            'cross_validation_output': y_val, 'test': x_test}
 
-        statistics_model = MultivariateGaussian(data_dictionary)
+        statistics_model = IndependentUnivariateGaussian(data_dictionary)
         statistics_model.fit_parameter()
 
-        self.assertEqual(statistics_model.mean['AC'], -0.033705855772026845)
+        self.assertEqual(statistics_model.mean[0], -0.009726763045597591)
 
-        self.assertEqual(statistics_model.sigma[1][1], 0.9808533927306314)
+        self.assertEqual(statistics_model.std[0], 1.0055511594794753)
 
         cross_validation_values = statistics_model.get_probabilities(x_val)
 
         (epsilon, f1, complexity) = select_threshold(y_val.flatten(), cross_validation_values)
 
-        self.assertEqual(epsilon, 5.609113658690419e+21)
-        self.assertEqual(f1, 0.27338129496402874)
+        self.assertEqual(epsilon, 3.468655474407142e+21)
+        self.assertEqual(f1, 0.2620689655172414)

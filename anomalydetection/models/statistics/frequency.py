@@ -65,7 +65,6 @@ class Frequency(Model):
                 # What bin best fit to data?
                 part_prob = 0
 
-                index_found = -1
                 length_fd = len(frequency_data)
                 for i in range(length_fd):
                     left_value = bin_data[i]
@@ -79,7 +78,7 @@ class Frequency(Model):
                             break
 
                 if part_prob == 0:
-                    sub = frequency_data[np.where(frequency_data > 0)]
+                    # sub = frequency_data[np.where(frequency_data > 0)]
                     # part_prob = np.min(sub)
 
                     part_prob = 1.0 / train_length
