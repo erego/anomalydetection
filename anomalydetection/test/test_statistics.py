@@ -1,8 +1,6 @@
 from unittest import TestCase
 
-from bokeh.plotting import figure, show, output_file
 import pandas as pd
-import numpy as np
 import scipy.stats as sts
 
 

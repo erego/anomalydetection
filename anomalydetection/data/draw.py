@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mptches
 import seaborn as sns
+import scipy.stats as sts
 
 
 def draw_correlation_matrix(sigma, data):
@@ -9,17 +10,12 @@ def draw_correlation_matrix(sigma, data):
     # Get correlation matrix and draw it
     corr_matrix = np.corrcoef(sigma)
     features = data.columns.values.tolist()
-    # print features
+
     sns.set(style="white")
     sns.heatmap(corr_matrix, annot=True, fmt=".2f", xticklabels=features, yticklabels=features)
 
     plt.xlabel('Correlation Matrix')
     plt.show()
-
-    # sns.pairplot(data[['area', 'perimeterPercent', 'ridgePercent']])
-    # sns.pairplot(data[['area', 'perimeterPercent', 'ridgePercent', 'hipPercent',
-    # 'valleyPercent']])
-    # plt.show()
 
 
 def draw_roc_curve(total_positives, total_negatives, statistical_measures, cost_fp, cost_fn):
@@ -58,15 +54,10 @@ def draw_roc_curve(total_positives, total_negatives, statistical_measures, cost_
     plt.legend(handles=[red_patch, blue_patch])
 
     plt.plot(epsilon, fp_ratio, 'r', epsilon, fn_ratio, 'b', epsilon, cost, 'y')
-    # plt.plot(epsilon, fp_ratio, 'r', epsilon, fn_ratio, 'b')
-
-    # plt.plot(epsilon, fp_ratio, 'r')
-    # plt.plot(epsilon, fn_ratio, 'b')
 
     plt.xlabel('epsilon')
     plt.ylabel('False and True Negative Rate')
 
-    # plt.show()
     x_linear = np.arange(0., 1.1, 0.1)
 
     plt.figure()
@@ -77,8 +68,6 @@ def draw_roc_curve(total_positives, total_negatives, statistical_measures, cost_
     plt.title('Receiver operating characteristic example')
     plt.legend(loc="lower right")
     plt.show()
-
-    return
 
 
 def draw_histogram_feature(x_data, x_header=None, y_value=None):
@@ -94,41 +83,19 @@ def draw_histogram_feature(x_data, x_header=None, y_value=None):
             n, bins, patches = plt.hist(feature_value, 100, normed=1, facecolor='g', alpha=0.75)
             feature_value1 = np.log(feature_value + 1)
 
-            # feature_value2 = 2*np.power(feature_value, -2)
-            # feature_value2 = np.power(feature_value, 0.5)
-            # feature_value2 = np.power(feature_value, -0.5)
-            feature_value2 = np.power(feature_value, 0.2)
-            # feature_value = np.power(feature_value, 2) + 10
-            # feature_value = np.log(feature_value + 5)
-            # feature_value = np.power(feature_value, 0.1)
-            # example data2
             mean = np.mean(feature_value, axis=0)
-            sigma = np.cov(feature_value, rowvar=0)
-            mean1 = np.mean(feature_value1, axis=0)
-            sigma1 = np.cov(feature_value1, rowvar=0)
-            mean2 = np.mean(feature_value2, axis=0)
-            sigma2 = np.cov(feature_value2, rowvar=0)
+            sigma = np.cov(feature_value, rowvar=False)
+
             num_bins = 50
             # the histogram of the data
-            # n, bins, patches = plt.hist(feature_value, num_bins,  facecolor='green', alpha=0.5)
-            # plt.xlabel('feature_value ' + str(i))
-            # plt.show()
-
-            n, bins, patches = plt.hist(feature_value, num_bins, normed=1, facecolor='green', alpha=0.5)
-            # add a 'best fit' line
-            y = plt.mlab.normpdf(bins, mean, sigma)
-            plt.plot(bins, y, 'r--')
+            n, bins, patches = plt.hist(feature_value, num_bins,  facecolor='green', alpha=0.5)
+            plt.xlabel('feature_value ' + str(i))
             plt.show()
 
-            n, bins, patches = plt.hist(feature_value1, num_bins, normed=1, facecolor='green', alpha=0.5)
+            n, bins, patches = plt.hist(feature_value, num_bins, normed=1, facecolor='green',
+                                        alpha=0.5)
             # add a 'best fit' line
-            y = plt.mlab.normpdf(bins, mean1, sigma1)
-            plt.plot(bins, y, 'r--')
-            plt.show()
-
-            n, bins, patches = plt.hist(feature_value2, num_bins, normed=1, facecolor='green', alpha=0.5)
-            # add a 'best fit' line
-            y = plt.mlab.normpdf(bins, mean2, sigma2)
+            y = sts.norm.pdf(bins, mean, sigma)
             plt.plot(bins, y, 'r--')
             plt.show()
 
@@ -137,13 +104,9 @@ def draw_histogram_feature(x_data, x_header=None, y_value=None):
             n, bins, patches = plt.hist(feature_value, 50, normed=1, facecolor='g', alpha=0.75)
             n, bins, patches = plt.hist((y_value[:, i]), 50, normed=1, color='r', alpha=0.75)
 
-            y = plt.mlab.normpdf(bins, mean2, sigma2)
+            mean = np.mean(feature_value, axis=0)
+            sigma = np.cov(feature_value, rowvar=False)
+
+            y = sts.norm.pdf(bins, mean, sigma)
             plt.plot(bins, y, 'r--')
             plt.show()
-        # plt.xlabel('Feature')
-        # plt.ylabel('Probability')
-        # plt.title('Histogram')
-        # plt.grid(True)
-        # plt.show()
-
-    return
